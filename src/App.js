@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Validation from './Validation';
 import './App.css';
 
 class App extends Component {
@@ -7,7 +8,7 @@ class App extends Component {
   }
 
   changeHandler = (event) => {
-    this.setState({userInput: event.target.value;})
+    this.setState({userInput: event.target.value})
   };
 
   render() {
@@ -28,6 +29,7 @@ class App extends Component {
           value={this.state.userInput}
           />
         <p>{this.state.userInput}</p>
+        <Validation inputLength={this.state.userInput.length} />
       </div>
     );
   }
