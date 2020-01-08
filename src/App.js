@@ -1,17 +1,33 @@
 import React, { Component } from 'react';
 import Validation from './Validation';
+import Char from './Char';
 import './App.css';
 
 class App extends Component {
   state = {
     userInput: ''
-  }
+  };
 
   changeHandler = (event) => {
     this.setState({userInput: event.target.value})
   };
 
+  deleteCharacterHandler = (index) => {
+    const text = this.state.userInput.split('');
+    text.splice(index, 1);
+    const updatedText = text.join('');
+    this.setState({userInput: updatedText});
+  };
+
   render() {
+
+    const charList = this.state.userInput.split('').map((chr, index) => {
+      return < Char
+        character={chr}
+        key={index}
+        clicked={() => this.deleteCharacterHandler(index) } />;
+    } )
+
     return (
       <div className="App">
         <ol>
@@ -25,11 +41,13 @@ class App extends Component {
         <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
         <input
           type="text"
+          placeholder="Enter some text"
           onChange={this.changeHandler}
           value={this.state.userInput}
           />
         <p>{this.state.userInput}</p>
         <Validation inputLength={this.state.userInput.length} />
+        {charList}
       </div>
     );
   }
